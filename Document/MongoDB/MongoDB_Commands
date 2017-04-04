@@ -1,7 +1,19 @@
 //Author: Minh Bui
-//Description: MongoDB javascript and commands
+//Description: MongoDB javascript and userful commands
 
-//Retrieve Human read-able size of collections inside a DB
+//**Active client connections
+db.currentOp(true).inprog.forEach(function(d){if (d.client)printjson(d.client)})
+
+//**Active connections on a database db1
+db.currentOp(
+   {
+     "active" : true,
+     "secs_running" : { "$gt" : 3 },
+     "ns" : /^db1\./
+   }
+)
+
+//**Retrieve Human read-able size of collections inside a DB
 function getReadableFileSizeString(fileSizeInBytes) {
 
     var i = -1;
